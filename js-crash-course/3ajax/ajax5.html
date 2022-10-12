@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax 5 - Get Users from SQL Lite DB</title>
+</head>
+
+<body>
+    <button id="button">Get Users from DB</button>
+    <div id="users">
+
+    </div>
+
+    <script>
+        document.getElementById('button').addEventListener('click', onClick);
+
+        function onClick() {
+            // console.log('Clicked ...');
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'process.js?users=all', true);
+
+            xhr.onload = function () {
+                // console.log(xhr.responseText);
+                const users = JSON.parse(this.responseText);
+                console.log(users);
+
+                let output = '<br>';
+
+                for (let user of users) {
+                    console.log(user);
+                    output += `${user.name}<br>`;
+                }
+
+                console.log(output);
+
+                document.getElementById('users').innerHTML = output;
+            }
+
+            xhr.send();
+        }
+    </script>
+</body>
+
+</html>

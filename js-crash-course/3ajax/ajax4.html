@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax 4 - Ajax and NodeJS forms</title>
+</head>
+
+<body>
+    <h2>GET Form</h2>
+    <form method="GET" action="process.js">
+        <input type="text" name="name">
+        <input type="submit" value="Submit">
+    </form>
+    <hr>
+    <h2>AJAX GET Form</h2>
+    <form id="ajax-get-form">
+        <input type="text" id="name1">
+        <input type="submit" value="Submit">
+    </form>
+    <h2>POST Form</h2>
+    <form method="POST" action="process.js">
+        <input type="text" name="name">
+        <input type="submit" value="Submit">
+    </form>
+    <hr>
+    <h2>AJAX POST Form</h2>
+    <form id="ajax-post-form">
+        <input type="text" name="name" id="name2">
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        document.getElementById('ajax-get-form').addEventListener('submit', getName);
+
+        function getName(e) {
+            e.preventDefault(); // e is event object
+
+            let xhr = new XMLHttpRequest();
+
+            const name = document.getElementById('name1').value
+
+            xhr.open('GET', `process.js?name=${name}`, true);
+
+            xhr.onload = function () {
+                console.log(xhr.responseText);
+            }
+
+            xhr.send();
+        }
+
+        document.getElementById('ajax-post-form').addEventListener('submit', postName);
+
+        function postName(e) {
+            e.preventDefault(); // e is event object
+
+            let xhr = new XMLHttpRequest();
+
+            const name = document.getElementById('name2').value;
+            console.log(name);
+            var params = 'name=' + name;
+
+            xhr.open('POST', 'process.js', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+
+            xhr.onload = function () {
+                console.log('Ajax ' + xhr.responseText);
+            }
+
+            xhr.send(params);
+        }
+    </script>
+</body>
+
+</html>
