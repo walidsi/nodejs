@@ -23,11 +23,11 @@ function serverCallBack(request, response) {
                 response.write('sorry, out of order');
             }
             else {
-                response.write(html)
+                response.write(html);
             }
-            response.end()
+            response.end();
         })
-        return;
+        return; // the request will come again for the async return value
     } else if (request.method === "GET") {
         if (request.url === '/favicon.ico') {
             response.writeHead(200, { 'Content-Type': 'image/x-icon' });
@@ -74,6 +74,7 @@ function serverCallBack(request, response) {
                     response.write(users);
                     response.end();
                 });
+                return; // the request will come again for the async call return value
             }
         }
     } else if (request.method === 'POST') {
