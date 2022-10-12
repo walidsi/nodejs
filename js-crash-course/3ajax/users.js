@@ -1,7 +1,7 @@
 //var async = require('async');
 const sqlite3 = require('sqlite3').verbose();
 
-async function getUsers(callback) {
+function getUsers(callback) {
     return new Promise((resolve, reject) => {
         let db = new sqlite3.Database('./users.db', sqlite3.OPEN_READONLY, (err) => {
             if (err) {
@@ -31,7 +31,7 @@ async function getUsers(callback) {
     });
 }
 
-async function addUser(name, callback) {
+function addUser(name, callback) {
     return new Promise((resolve, reject) => {
         let db = new sqlite3.Database('./users.db', sqlite3.OPEN_READWRITE, (err) => {
             if (err) {
