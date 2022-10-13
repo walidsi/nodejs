@@ -25,17 +25,25 @@
 
             xhr.onload = function () {
                 // console.log(xhr.responseText);
-                const users = JSON.parse(this.responseText);
-                console.log(users);
+                let output = '';
+                if (this.status == 200) {
 
-                let output = '<br>';
+                    const users = JSON.parse(this.responseText);
+                    console.log(users);
 
-                for (let user of users) {
-                    console.log(user);
-                    output += `${user.name}<br>`;
+                    output += '<br>';
+
+                    for (let user of users) {
+                        console.log(user);
+                        output += `${user.name}<br>`;
+                    }
+
+                    console.log(output);
+                } else {
+                    const error = this.responseText;
+                    console.log(error);
+                    output = error;
                 }
-
-                console.log(output);
 
                 document.getElementById('users').innerHTML = output;
             }

@@ -70,9 +70,17 @@ function serverCallBack(request, response) {
                 response.write('You typed: ' + params.name);
                 response.end();
             } else if (params.users === 'all') {
-                users.getUsers((users) => {
-                    response.write(users);
-                    response.end();
+                users.getUsers((users, err) => {
+                    if (err) {
+                        response.writeHead(505, { 'Content-Type': 'text/json' });
+                        response.write(err);
+                        response.end();
+                    }
+                    else {
+                        response.writeHead(200, { 'Content-Type': 'text/json' });
+                        response.write(users);
+                        response.end();
+                    }
                 });
                 return; // the request will come again for the async call return value
             }
