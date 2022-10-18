@@ -41,8 +41,13 @@ createPost2({ title: 'Post Three', body: 'This is post three' })
 
 
 async function init() {
-    await createPost2({ title: 'Post Four', body: 'This is post four' });
-    getPosts();
+    try {
+        await createPost2({ title: 'Post Four', body: 'This is post four' });
+        getPosts();
+
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 init();
